@@ -9,6 +9,7 @@ class AB_FJE(ABC):
 
     def load(self,json_path):
         self.json_path = json_path
+        return self
         
     def isroot(self):
         return self.analyzer.isroot()    

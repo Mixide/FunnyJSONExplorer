@@ -2,10 +2,6 @@ from entry import Entry
 class EntryBuilder:
     def __init__(self):
         self.entry = Entry()
-
-    def setroot(self,rootFlag):
-        self.entry.isroot = rootFlag
-        return self
     
     def setfirst(self,firstFlag):
         self.entry.isfirst = firstFlag

@@ -12,10 +12,9 @@ class Analyzer:
         key,value = item
         firstFlag = idx == 0
         lastFlag = idx == siz - 1
-        rootFlag = len(self.list) == 0
         leafFlag = not isinstance(value, dict)
-        entry = EntryBuilder().setfirst(firstFlag).setlast(lastFlag).setroot(rootFlag)\
-        .setleaf(leafFlag).setkey(key).setvalue(value).setlevel(level).setparents(parents).build()
+        entry = EntryBuilder().setfirst(firstFlag).setlast(lastFlag).setleaf(leafFlag)\
+            .setkey(key).setvalue(value).setlevel(level).setparents(parents).build()
         self.list.append(entry)
         parents.append(len(self.list)-1)
         if(isinstance(value, dict)):
@@ -33,7 +32,12 @@ class Analyzer:
     def isroot(self,idx = None):
         if idx == None:
             idx = self.idx
-        return self.list[idx].isroot
+        return idx == 0
+    
+    def istail(self,idx = None):
+        if idx == None:
+            idx = self.idx
+        return idx + 1 == len(self.list)
     
     def isleaf(self,idx = None):
         if idx == None:

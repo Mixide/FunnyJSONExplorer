@@ -1,4 +1,5 @@
-from Factory.Tree_Factory import TreeFJE_Factory
+from Factory.Tree_Factory import Tree_Factory
+from Factory.Rect_Factory import Rect_Factory
 import argparse 
 
 parser = argparse.ArgumentParser(description='Chose the style and icon and input the file path')
@@ -7,7 +8,8 @@ parser.add_argument('-i', '--icon',required=True,help='the path of the icon conf
 parser.add_argument('-f', '--file',required=True,help='the path of json file')
 args = parser.parse_args()
 factory_dic = {
-    'TREE': TreeFJE_Factory
+    'TREE': Tree_Factory,
+    'RECT': Rect_Factory
 }
 def getFactory(style):
     key = style.upper()
@@ -18,10 +20,8 @@ def main():
     icon_path = args.icon
     file_path = args.file
     factory = getFactory(style)
-    factory.load_icon(icon_path)
-    FJE = factory.create_FJE()
-    FJE.load(file_path)
-    FJE.show()
+    FJE = factory.load_icon(icon_path).create_FJE()
+    FJE.load(file_path).show()
 
 if __name__ == '__main__':
     main()
