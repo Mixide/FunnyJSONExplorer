@@ -69,8 +69,9 @@ class AB_FJE(ABC):
     def next(self):
         return self.analyzer.next()
     
-    def show(self,json_path):
-        self._load(json_path)
+    def show(self,json_path=None):
+        if json_path != None:
+            self._load(json_path)
         self.analyzer.analyze(self.json_path)
         while not self.isend():
             self.setPrefix()
