@@ -11,17 +11,17 @@ factory_dic = {
     'TREE': Tree_Factory,
     'RECT': Rect_Factory
 }
-def getFactory(style):
+def selectFactory(style,icon_path):
     key = style.upper()
-    return factory_dic[key]()
+    return factory_dic[key](icon_path)
 
 def main():
     style = args.style
     icon_path = args.icon
     file_path = args.file
-    factory = getFactory(style)
-    FJE = factory.load_icon(icon_path).create_FJE()
-    FJE.load(file_path).show()
+    factory = selectFactory(style,icon_path)
+    FJE = factory.create_FJE()
+    FJE.show(file_path)
 
 if __name__ == '__main__':
     main()

@@ -1,2 +1,2 @@
 # FunnyJSONExplorer
-visualize the JSON file
+可视化JSON文件

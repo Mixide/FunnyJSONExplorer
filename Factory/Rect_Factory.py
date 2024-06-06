@@ -7,45 +7,40 @@ class RectFJE(AB_FJE):
         super().__init__(leafpre,normalpre)
         self.width = width
     
-    def showSingle(self):
-        pre = ""
-        for _ in self.analyzer.getparents():
-            if self.analyzer.istail():
-                pre += '└──'
+    def setPrefix(self):
+        super().setPrefix()
+        for _ in self.getParents():
+            if self.istail():
+                self.prefix += '└──'
             else:
-                pre += '|──'
-        if self.analyzer.isroot():
-            pre += '┌─'
-        elif self.analyzer.istail():
-            pre += '└─'
+                self.prefix += '|──'
+        if self.isroot():
+            self.prefix += '┌─'
+        elif self.istail():
+            self.prefix += '└─'
         else:
-            pre += '├─'
-        if self.analyzer.isleaf():
-            pre += self.leafpre
+            self.prefix += '├─'
+
+    def setSuffix(self):
+        super().setSuffix()
+        length = len(self.getPrefix()+self.getEntryView())
+        if length < self.width:
+            self.suffix += '─' * (self.width-1-length)
+        if self.isroot():
+            self.suffix  += '┐'
+        elif self.istail():
+            self.suffix  += '┘'
         else:
-            pre += self.norpre
-        if self.analyzer.isleaf() and self.analyzer.getValue() != None:
-            pre += self.analyzer.getKey()+':'+self.analyzer.getValue()
-        else:
-            pre += self.analyzer.getKey()
-        if len(pre) < self.width:
-            pre += '─' * (self.width-1-len(pre))
-        if self.analyzer.isroot():
-            pre += '┐'
-        elif self.analyzer.istail():
-            pre += '┘'
-        else:
-            pre += '|'
-        print(pre)
+            self.suffix  += '|'
 
 class Rect_Factory(FJE_Factory):
-    def __init__(self):
-        super().__init__()
+    def __init__(self,icon_config):
+        super().__init__(icon_config)
 
     def create_FJE(self):
         try:
-            width = os.environ['WIDTH']
-        except:
-            width = 50
+            width = int(os.getenv('WIDTH'))#从环境变量中读取矩形的宽度
+        except Exception as e:
+            width = 50#无有效设置时，默认宽度为50
         return RectFJE(self.leaf_icon,self.norm_icon,width) 
     

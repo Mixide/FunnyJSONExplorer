@@ -4,30 +4,25 @@ from Factory import FJE_Factory
 class TreeFJE(AB_FJE):
     def __init__(self, leafpre, normalpre):
         super().__init__(leafpre,normalpre)
-    
-    def showSingle(self):
-        pre = ""
-        for p_idx in self.analyzer.getparents():
-            if not self.analyzer.islast(p_idx):
-                pre += '|  '
+
+    def setPrefix(self):
+        super().setPrefix()
+        for p_idx in self.getParents():
+            if not self.islast(p_idx):
+                self.prefix += '|  '
             else:
-                pre += '   '
-        if self.analyzer.islast():
-            pre += '└─'
+                self.prefix += '   '
+        if self.islast():
+            self.prefix += '└─'
         else:
-            pre += '├─'
-        if self.analyzer.isleaf():
-            pre += self.leafpre
-        else:
-            pre += self.norpre
-        if self.analyzer.isleaf() and self.analyzer.getValue() != None:
-            print(pre + self.analyzer.getKey()+':'+self.analyzer.getValue())
-        else:
-            print(pre + self.analyzer.getKey())
+            self.prefix += '├─'
+    
+    def setSuffix(self):
+        super().setSuffix()
 
 class Tree_Factory(FJE_Factory):
-    def __init__(self):
-        super().__init__()
+    def __init__(self,icon_config):
+        super().__init__(icon_config)
 
     def create_FJE(self):
         return TreeFJE(self.leaf_icon,self.norm_icon)   

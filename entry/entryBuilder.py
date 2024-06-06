@@ -31,5 +31,9 @@ class EntryBuilder:
         self.entry.parents = parents.copy()
         return self
 
+    def setsons(self,sons):
+        self.entry.sons = sons
+        return self
+    
     def build(self):
         return self.entry
