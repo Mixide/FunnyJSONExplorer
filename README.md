@@ -9,3 +9,5 @@ icon配置的json格式应为
     "non-leaf": non-leaf icon
 }
 ```
+
+Rect风格涉及到矩阵长度设置，可以通过环境变量 *WIDTH*来设置矩阵长度，不设置时默认是50字符长度
