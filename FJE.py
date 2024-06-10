@@ -7,20 +7,20 @@ parser.add_argument('-s', '--style',required=True,help='the output style')
 parser.add_argument('-i', '--icon',required=True,help='the path of the icon config')
 parser.add_argument('-f', '--file',required=True,help='the path of json file')
 args = parser.parse_args()
-factory_dic = {
+factory_dic = {#工厂哈希表
     'TREE': Tree_Factory,
     'RECT': Rect_Factory
 }
-def selectFactory(style,icon_path):
+def selectFactory(style):#生成具体工厂
     key = style.upper()
-    return factory_dic[key](icon_path)
+    return factory_dic[key]()
 
 def main():
     style = args.style
     icon_path = args.icon
     file_path = args.file
-    factory = selectFactory(style,icon_path)
-    FJE = factory.create_FJE()
+    factory = selectFactory(style)
+    FJE = factory.createFJE(icon_path)
     FJE.show(file_path)
 
 if __name__ == '__main__':

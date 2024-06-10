@@ -1,0 +1,8 @@
+{
+    "name" : "Michael",
+    "address" : {
+        "city" : "Beijing",
+        "street" : "Chaoyang Road",
+        "postcode" : 100025
+    }
+}

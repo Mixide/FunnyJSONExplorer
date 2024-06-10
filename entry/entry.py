@@ -1,4 +1,4 @@
-class Entry:
+class Entry:#代表json中一个项
     def __init__(self):
         self.isfirst = False
         self.isleaf = False

@@ -2,9 +2,9 @@ from Factory import AB_FJE
 from Factory import FJE_Factory
 import os
 
-class RectFJE(AB_FJE):
-    def __init__(self, leafpre, normalpre,width):
-        super().__init__(leafpre,normalpre)
+class RectFJE(AB_FJE):#具体产品1
+    def __init__(self, icon_path, width):
+        super().__init__(icon_path)
         self.width = width
     
     def setPrefix(self):
@@ -33,14 +33,11 @@ class RectFJE(AB_FJE):
         else:
             self.suffix  += '|'
 
-class Rect_Factory(FJE_Factory):
-    def __init__(self,icon_config):
-        super().__init__(icon_config)
-
-    def create_FJE(self):
+class Rect_Factory(FJE_Factory):#具体工厂1
+    def createFJE(self,icon_path):
         try:
             width = int(os.getenv('WIDTH'))#从环境变量中读取矩形的宽度
         except Exception as e:
             width = 50#无有效设置时，默认宽度为50
-        return RectFJE(self.leaf_icon,self.norm_icon,width) 
+        return RectFJE(icon_path,width) 
     

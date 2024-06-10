@@ -1,5 +1,5 @@
 from entry import Entry
-class EntryBuilder:
+class EntryBuilder:#建造者模式的Builder，生成entry
     def __init__(self):
         self.entry = Entry()
     
@@ -16,11 +16,14 @@ class EntryBuilder:
         return self
     
     def setkey(self,key):
-        self.entry.key = key
+        self.entry.key = str(key)
         return self
 
     def setvalue(self,value):
-        self.entry.value = value
+        if value == None:
+            self.entry.value = ''
+        else:
+            self.entry.value = str(value)
         return self
     
     def setlevel(self,level):

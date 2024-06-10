@@ -9,7 +9,7 @@ class TestTreeFJEOutput(unittest.TestCase):
     def test_print_output(self):
         captured_output = StringIO()
         sys.stdout = captured_output
-        FJE = Tree_Factory("Test/icon_test.json").create_FJE()
+        FJE = Tree_Factory().createFJE("Test/icon_test.json")
         FJE.show("Test/test.json")
         sys.stdout = sys.__stdout__
         self.assertEqual(captured_output.getvalue(), 
@@ -25,7 +25,7 @@ class TestRectFJEOutput(unittest.TestCase):
     def test_print_output(self):
         captured_output = StringIO()
         sys.stdout = captured_output
-        FJE = Rect_Factory("Test/icon_test.json").create_FJE()
+        FJE = Rect_Factory().createFJE("Test/icon_test.json")
         FJE.show("Test/test.json")
         sys.stdout = sys.__stdout__
         self.assertEqual(captured_output.getvalue(), 

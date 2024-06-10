@@ -1,13 +1,18 @@
 from abc import ABC, abstractmethod
-from analyzer import Analyzer
-
-class AB_FJE(ABC):
-    def __init__(self,leafpre,normalpre):
+from Factory.analyzer import Analyzer
+import json
+class AB_FJE(ABC):#抽象FJE类，实现了一系列模板方法，并提供具体类接口
+    def __init__(self,icon_path):
         self.analyzer = Analyzer()
-        self.leafpre = leafpre
-        self.norpre = normalpre
+        self._loadicon(icon_path)
 
-    def _load(self,json_path):
+    def _loadicon(self,icon_path):
+        with open(icon_path,'r',encoding='utf-8') as icon_file:
+            icon_data = json.load(icon_file)
+            self.leaf_icon = icon_data['leaf']
+            self.norm_icon = icon_data['non-leaf']
+
+    def _loadfile(self,json_path):
         self.json_path = json_path
         
     def getIndex(self):
@@ -71,7 +76,7 @@ class AB_FJE(ABC):
     
     def show(self,json_path=None):
         if json_path != None:
-            self._load(json_path)
+            self._loadfile(json_path)
         self.analyzer.analyze(self.json_path)
         while not self.isend():
             self.setPrefix()
@@ -84,10 +89,10 @@ class AB_FJE(ABC):
     
     def getEntryView(self):
         if self.isleaf():
-            icon = self.leafpre
+            icon = self.leaf_icon
         else:
-            icon = self.norpre
-        if self.isleaf() and self.getValue() != None:
+            icon = self.norm_icon
+        if self.isleaf() and self.getValue() != '':
             return icon + self.getKey()+':'+self.getValue()
         return icon + self.getKey()
     
